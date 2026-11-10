@@ -1,6 +1,13 @@
 import { shuffle } from "../utils/shuffle-array.ts";
 import { DEFAULT_SETTINGS } from "./constants.ts";
-import type { BasePlayer, ChamberType, CharacterType, InGamePlayer, Settings } from "types";
+import type {
+  BasePlayer,
+  ChamberType,
+  CharacterType,
+  GamePhase,
+  InGamePlayer,
+  Settings,
+} from "types";
 
 export class Game {
   players: InGamePlayer[] = [];
@@ -12,11 +19,13 @@ export class Game {
   turn: number = 0;
   settings: Settings;
   currentKeyHolderId: string;
+  gamePhase: GamePhase = "Waiting";
   constructor(players: BasePlayer[]) {
     this.settings = DEFAULT_SETTINGS[players.length];
     this.initializeDeck();
     this.players = this.preparePlayers(players);
     this.currentKeyHolderId = this.drawFirstKeyHolder();
+    this.startRound();
   }
 
   preparePlayers(players: BasePlayer[]): InGamePlayer[] {
@@ -64,5 +73,22 @@ export class Game {
   }
   cardsInHand() {
     return this.players.length - this.round + 1;
+  }
+  didAllPlayersDeclared() {
+    return this.players.every((p) => !!p.declaredCards);
+  }
+  clearPlayersDeclaredCards() {
+    this.players = this.players.map((p) => ({ ...p, declaredCards: undefined }));
+  }
+
+  startRound() {
+    this.clearPlayersDeclaredCards();
+    this.turn = 0;
+    const cardsInHand = this.cardsInHand();
+    this.players = this.players.map((p) => ({
+      ...p,
+      cardsInHand: Array.from({ length: cardsInHand }).map(() => this.deck.pop()!),
+    }));
+    this.gamePhase = "Declarations";
   }
 }
