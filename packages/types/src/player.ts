@@ -9,7 +9,7 @@ export interface BasePlayer {
 export interface InGamePlayer extends BasePlayer {
   characterType: CharacterType;
   cardsInHand: ChamberType[];
-  declaredCards: DeclaredCards;
+  declaredCards?: DeclaredCards;
   isKeyHolder: boolean;
   isConnected: boolean;
 }
