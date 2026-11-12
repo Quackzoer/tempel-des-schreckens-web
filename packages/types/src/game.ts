@@ -2,7 +2,7 @@ import type { ChamberType, CharacterType, DeclaredCards } from "./constants.ts";
 import type { Lobby } from "./lobby.ts";
 import type { BasePlayer } from "./player.ts";
 
-export const gamePhase = ["Waiting", "Declarations", "Key Actions", "Ended"] as const;
+export const gamePhase = ["Declarations", "Revealing", "Finished"] as const;
 export type GamePhase = (typeof gamePhase)[number];
 
 export interface CardDeclaration {

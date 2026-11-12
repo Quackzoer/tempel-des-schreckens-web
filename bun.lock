@@ -48,6 +48,7 @@
       "version": "0.0.0",
       "dependencies": {
         "types": "workspace:*",
+        "utils": "workspace:*",
       },
       "devDependencies": {
         "@types/node": "^26.6.5",

@@ -5,3 +5,5 @@ export const chamberType = ["Treasure", "Trap", "Empty"] as const;
 export type ChamberType = (typeof chamberType)[number];
 
 export type DeclaredCards = Record<ChamberType, number>;
+
+export type CardInHand = { card: ChamberType; revealed: boolean };
