@@ -31,7 +31,8 @@
     "prepublishOnly": "vp run build"
   },
   "dependencies": {
-    "types": "workspace:*"
+    "types": "workspace:*",
+    "utils": "workspace:*"
   },
   "devDependencies": {
     "@types/node": "^26.6.5",
